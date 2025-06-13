@@ -1,5 +1,5 @@
 // setup
-
+require("dotenv").config()
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -8,6 +8,7 @@ const cors = require("cors")
 const corsConfig = {origin: "http://localhost:5173"}
 
 // import
+
 
 const router = require("./routers/postsRoutes");
 const { errorHandler } = require("./middlewares/internalServerError.js");
@@ -28,5 +29,5 @@ app.use(notFoundHandler);
 // console check
 
 app.listen(port, () => {
-  console.log(`server in ascolto su ${localHost}`);
+  console.log(`server in ascolto su ${localHost}`);
 });

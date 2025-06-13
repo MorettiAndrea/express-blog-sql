@@ -1,0 +1,18 @@
+{
+  "name": "express-blog-api-crud",
+  "version": "1.0.0",
+  "description": "Esercizio\r Milestone 1\r Come prima cosa, creiamo un controller per i nostri post, in una cartella controllers.\r All’interno, prepariamo tutte le funzioni necessarie e copiamo in ciascuna la logica delle funzioni che attualmente si trovano nel router (al momento restituiscono solo dei messaggi).\r Torniamo sul file delle rotte. Qui importiamo le funzioni dichiarate nel controller e le associamo alle varie rotte, come visto in classe.\r Testiamo su postman se chiamando gli endpoint riceviamo effettivamente le stesse risposte che avevamo prima.\r Se tutto funziona, passiamo alla prossima milestone\r Milestone 2\r Per iniziare, creiamo una cartella data in cui creare un file che contenga ed esporti l’array di posts che trovate in allegato. Importiamo questo file in cima al controller.\r Ora passiamo ad implementare le logiche delle nostre CRUD:\r Index: dovrà restituire la lista dei post in formato JSON\r Show: dovrà restituire un singolo post in formato JSON\r Destroy: dovrà eliminare un singolo post dalla lista, stampare nel terminale (console.log) la lista aggiornata, e rispondere con uno stato 204 e nessun contenuto.\r Bonus\r Implementare un filtro di ricerca nella index che mostri solo i post che hanno un determinato Tag\r In Show e Destroy, controllare se il parametro si riferisce ad un post esistente, in caso contrario, rispondere con uno stato 404 e un messaggio d’errore, sempre in formato JSON.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

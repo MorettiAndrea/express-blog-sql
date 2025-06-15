@@ -1,4 +1,5 @@
 // import
+
 const { response } = require("express");
 const connection = require ("../data/db")
 
@@ -24,7 +25,7 @@ const index = (req, res) => {
   FROM posts`;
 
   connection.query(sql, (err, results) => {
-    if (err) return res.status(500).json({ error: "query request failed" });
+    if (err || !req) return res.status(500).json({ error: "query request failed" });
     
    
     res.json({
@@ -38,8 +39,14 @@ const show = (req, res) => {
 
   const postsId  = parseInt(req.params.id)
 
- const sqlShow = `SELECT *
-  FROM posts WHERE id = ?`
+  if ((!postsId) || isNaN(postsId)) {
+    return res.status(400).json({ error: "Invalid Id" });
+  }
+
+ const sqlShow = 
+ `SELECT *
+  FROM posts
+  WHERE id = ?`
 
   connection.query(sqlShow,[postsId],(err,results) =>{
     if(err)return res.status(500).json({error:"query request failed"})
@@ -209,17 +216,30 @@ const modify = (req, res) => {
 };
 
 const destroy = (req, res) => {
-  // const postId = parseInt(req.params.id);
-  // const post = posts.filter((post) => post.id !== postId);
-  // if (!post) {
-  //   res.json({
-  //     status: 404,
-  //     message: "post not found",
-  //     error: "404 not found",
-  //   });
-  // }
-  // return res.json({ status: 204, message: "Post cancellato", data: post });
+  
+  const postsId = parseInt(req.params.id);
+
+  if ((!postsId) || isNaN(postsId)) {
+    return res.status(400).json({ error: "Invalid Id" });
+  }
+
+  const sqlDelete = 
+  `DELETE 
+  FROM posts 
+  WHERE id = ?`;
+
+  connection.query(sqlDelete, [postsId], (err, results) => {
+
+    if(err)return res.status(500).json({error:"query request failed"})
+      if (results.length === 0)
+        return res.status(404).json( {error :"required post not found"})
+
+
+    res.status(204)
+  });
 };
-// console.log(posts);
+
+
+
 
 module.exports = { index, show, store, update, modify, destroy };

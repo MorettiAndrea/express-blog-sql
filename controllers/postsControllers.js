@@ -1,4 +1,5 @@
 // import
+const { response } = require("express");
 const connection = require ("../data/db")
 
 
@@ -17,36 +18,19 @@ const connection = require ("../data/db")
 const posts = require("../data/posts");
 
 const index = (req, res) => {
-  // const filtredTitle = req.query.titolo;
-  // const filtredContent = req.query.contenuto;
-  // const filtredTags = req.query.tags;
+ 
 
-  // let filtredPosts = [...posts];
+  const sql = "SELECT * FROM posts";
 
-  // if (filtredTitle) {
-  //   filtredPosts = filtredPosts.filter((post) =>
-  //     post.titolo.includes(filtredTitle)
-  //   );
-  // }
-  // if (filtredContent) {
-  //   filtredPosts = filtredPosts.filter((post) =>
-  //     post.contenuto.includes(filtredContent)
-  //   );
-  // }
-  // if (filtredTags) {
-  //   filtredPosts = filtredPosts.filter((post) =>
-  //     post.tags.includes(filtredTags)
-  //   );
-  // }
-  // res.json({ data: filtredPosts, status: 200 });
-
-
-
-
-
-
-
-  
+  connection.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ error: " query request failed" });
+    
+   
+    res.json({
+      data: results,
+      status: 200,
+    }); console.log(results);
+  });
 };
 
 const show = (req, res) => {

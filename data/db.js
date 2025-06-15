@@ -5,12 +5,14 @@ const connection = mySql.createConnection({
  host:"localhost",
  user:"root",
  password: process.env.MY_PASSWORD,
- database :"university",
+ database :"blog",
  port :3306,
 })
 
 connection.connect((err) => {if(err) throw err })
     console.log("db connected");
+
+
     
 
 module.exports = connection

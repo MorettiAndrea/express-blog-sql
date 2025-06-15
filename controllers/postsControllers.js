@@ -20,10 +20,11 @@ const posts = require("../data/posts");
 const index = (req, res) => {
  
 
-  const sql = "SELECT * FROM posts";
+  const sql = `SELECT * 
+  FROM posts`;
 
   connection.query(sql, (err, results) => {
-    if (err) return res.status(500).json({ error: " query request failed" });
+    if (err) return res.status(500).json({ error: "query request failed" });
     
    
     res.json({
@@ -34,22 +35,20 @@ const index = (req, res) => {
 };
 
 const show = (req, res) => {
-  // // trovo il post
-  // const postId = parseInt(req.params.id);
-  // const post = posts.find((post) => post.id === postId);
 
-  // // gestione post non trovato
+  const postsId  = parseInt(req.params.id)
 
-  // if (!post) {
-  //   res.json({
-  //     status: 404,
-  //     message: "post not found",
-  //     error: "404 not found",
-  //   });
-  // }
+ const sqlShow = `SELECT *
+  FROM posts WHERE id = ?`
 
-  // // risposta
-  // return res.json(post);
+  connection.query(sqlShow,[postsId],(err,results) =>{
+    if(err)return res.status(500).json({error:"query request failed"})
+      if (results.length === 0)
+        return res.status(404).json( {error :"required post not found"})
+
+    const post = results[0]
+    res.json(post)
+  })
 };
 
 const store = (req, res) => {
